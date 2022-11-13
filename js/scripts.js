@@ -10,8 +10,8 @@ function pigLatin(text) {
     if (isEmpty(text)) {
         return "";
     }
-    const vowels = ["a", "e", "i", "o", "u"];
-    if (vowels.includes(text[0])) {
+    const vowels = ["A", "E", "I", "O", "U"];
+    if (vowels.includes(text[0].toUpperCase())) {
       return text + "way"
     }
     
