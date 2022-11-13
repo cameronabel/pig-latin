@@ -39,6 +39,10 @@ Copyright (c) _2022_ _Cameron Abel_, _Chloe O'Neil_, _Carl Sustrich_
 
 Describe: pigLatin()
 
+Test: "It will return a blank string if passed a blank string"
+Code: pigLatin("");
+Expected Output: ""
+
 Test: "It will not add 'way' to the end of words that don't begin with a vowel."
 Code: pigLatin("dog");
 Expected output: "dog"

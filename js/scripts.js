@@ -10,6 +10,11 @@ function pigLatin(text) {
     if (isEmpty(text)) {
         return "";
     }
+    const vowels = ["a", "e", "i", "o", "u"];
+    if (vowels.includes(text[0])) {
+      return text + "way"
+    }
+    
     return text;
 }
 
