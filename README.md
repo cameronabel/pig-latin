@@ -43,10 +43,6 @@ Test: "It will return a blank string if passed a blank string"
 Code: pigLatin("");
 Expected Output: ""
 
-Test: "It will not add 'way' to the end of words that don't begin with a vowel."
-Code: pigLatin("dog");
-Expected output: "dog"
-
 Test: "It will add 'way' to the end of words that are just a vowel."
 Code: pigLatin("a");
 Expected Output: "away"
@@ -62,6 +58,10 @@ Expected Output: "Away"
 Test: "It will add 'way' to the end of words that begin with a vowel, regardless of punctuation."
 Code: pigLatin("A!");
 Expected Output: "Away!"
+
+Test: "It will not add 'way' to the end of words that don't begin with a vowel."
+Code: pigLatin("dog");
+Expected output: "dog"
 
 Test: "It will, in words that begin with a consonant, move the consonant to the end of the word, followed by 'ay'."
 Code: pigLatin("monkey");
