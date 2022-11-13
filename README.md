@@ -23,7 +23,7 @@ This site may be accessed on [GitHub pages](https://cameronabel.github.io/pig-la
 - Open index.html in your browser
 
 - Enter a phrase into the text box
-- Click on `Submit`
+- Click on `Submit!`
 
 ## Known Bugs
 
