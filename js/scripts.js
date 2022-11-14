@@ -1,7 +1,7 @@
 
 // utility
 function isEmpty(testString) {
-  return (testString.trim().length === 0);
+  return testString.trim().length === 0;
 }
 
 function depunctualize(word) {
@@ -31,7 +31,6 @@ function latinify(word, suffix, prefix='') {
 
 // business
 function pigLatin(text) {
-  console.log(text)
   if (isEmpty(text)) {
     return "";
   }
