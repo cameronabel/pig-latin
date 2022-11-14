@@ -36,7 +36,8 @@ function depunctualize(word) {
 
 function latinify(word, suffix, prefix='') {
   const [letters, punctuation] = depunctualize(word);
-  return letters.slice(prefix.length) + prefix + suffix + punctuation;
+  word = letters.slice(prefix.length);
+  return word[0].toUpperCase() + word.slice(1) + prefix + suffix + punctuation;
 }
 
 // business
@@ -47,19 +48,21 @@ function pigLatin(text) {
     const vowels = ["A", "E", "I", "O", "U"];
     if (vowels.includes(text[0].toUpperCase())) {
       return latinify(text, "way");
+    } else if ((text.charAt(0).toLowerCase() === "q") && (text.charAt(1).toLowerCase() === "u")) {
+      return latinify(text, "ay", "qu");
+    } else if (text.toLowerCase().startsWith('squ')) { 
+      return latinify(text, 'ay', 's');
     } else {
         const conArray= text.split('');
         let prefix = '';
         for (let index=0; index <text.length; index +=1) {
             if (vowels.includes(conArray[index].toUpperCase())) {
-                return latinify(text, "ay", prefix);
+                return latinify(text, "ay", prefix.toLowerCase());
             } else {
                 prefix+=conArray[index];
             }
         }
-
     }
-   
     return text;
 }
 
