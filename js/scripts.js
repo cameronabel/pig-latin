@@ -37,7 +37,11 @@ function depunctualize(word) {
 function latinify(word, suffix, prefix='') {
   const [letters, punctuation] = depunctualize(word);
   word = letters.slice(prefix.length);
-  return word[0].toUpperCase() + word.slice(1) + prefix + suffix + punctuation;
+  if (prefix[0] === prefix[0].toUpperCase()) {
+    word = word[0].toUpperCase() + word.slice(1);
+    prefix = prefix.toLowerCase()
+  }
+  return word + prefix + suffix + punctuation;
 }
 
 // business
@@ -49,21 +53,27 @@ function pigLatin(text) {
     if (vowels.includes(text[0].toUpperCase())) {
       return latinify(text, "way");
     } else if ((text.charAt(0).toLowerCase() === "q") && (text.charAt(1).toLowerCase() === "u")) {
-      return latinify(text, "ay", "qu");
+      return latinify(text, "ay", text.slice(0, 2));
     } else if (text.toLowerCase().startsWith('squ')) { 
-      return latinify(text, 'ay', 's');
+      return latinify(text, 'ay', text.slice(0, 1));
     } else {
-        const conArray= text.split('');
         let prefix = '';
         for (let index=0; index <text.length; index +=1) {
-            if (vowels.includes(conArray[index].toUpperCase())) {
-                return latinify(text, "ay", prefix.toLowerCase());
+            if (vowels.includes(text[index].toUpperCase())) {
+                return latinify(text, "ay", prefix);
             } else {
-                prefix+=conArray[index];
+                prefix+=text[index];
             }
         }
     }
     return text;
+}
+
+function translatePassage(passage) {
+  const passageArray = passage.split(' ');
+  let result = "";
+  result = passageArray.map(pigLatin).join(' ');
+  return result;
 }
 
 
@@ -72,7 +82,7 @@ function formSubmit (event) {
   event.preventDefault();
   document.getElementById("translated-passage").innerText = "";
   const passage = document.getElementById("text-passage").value;
-  let result = pigLatin(passage);
+  let result = translatePassage(passage);
   document.getElementById("translated-passage").append(result);
 }
 
