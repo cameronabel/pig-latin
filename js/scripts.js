@@ -4,20 +4,6 @@ function isEmpty(testString) {
   return (testString.trim().length === 0);
 }
 
-// function depunctualize(word) {
-//   const charArray = word.toLowerCase().split('');
-//   let noPunctWord = '';
-//   charArray.forEach(function(char) {
-//     const asciiCode = char.charCodeAt(0);
-//     if (asciiCode >= 97 && asciiCode <= 122) {
-//       noPunctWord += String.fromCharCode(asciiCode);
-//     } else {
-//       noPunctWord += ' ';
-//     }
-//   })
-//   return noPunctWord
-// }
-
 function depunctualize(word) {
   const charArray = word.split('');
   const reversedArray = charArray.reverse();
@@ -25,7 +11,7 @@ function depunctualize(word) {
   for (let char of reversedArray) {
     const asciiCode = char.toLowerCase().charCodeAt(0);
     if (asciiCode >= 97 && asciiCode <= 122) {
-      break
+      break;
     } else {
       punctuation = char + punctuation;
     }
@@ -33,40 +19,42 @@ function depunctualize(word) {
   return [charArray.slice(punctuation.length).reverse().join(''), punctuation];
 }
 
-
 function latinify(word, suffix, prefix='') {
   const [letters, punctuation] = depunctualize(word);
   word = letters.slice(prefix.length);
   if (prefix[0] === prefix[0].toUpperCase()) {
     word = word[0].toUpperCase() + word.slice(1);
-    prefix = prefix.toLowerCase()
+    prefix = prefix.toLowerCase();
   }
   return word + prefix + suffix + punctuation;
 }
 
 // business
 function pigLatin(text) {
-    if (isEmpty(text)) {
-        return "";
+  if (isEmpty(text)) {
+    return "";
+  }
+  const vowels = ["A", "E", "I", "O", "U"];
+  if (vowels.includes(text[0].toUpperCase())) {
+    return latinify(text, "way");
+  } else if (
+    text.charAt(0).toLowerCase() === "q"
+    && text.charAt(1).toLowerCase() === "u"
+    ) {
+    return latinify(text, "ay", text.slice(0, 2));
+  } else if (text.toLowerCase().startsWith('squ')) { 
+    return latinify(text, 'ay', text.slice(0, 1));
+  } else {
+    let prefix = '';
+    for (let index=0; index <text.length; index +=1) {
+      if (vowels.includes(text[index].toUpperCase())) {
+        return latinify(text, "ay", prefix);
+      } else {
+        prefix += text[index];
+      }
     }
-    const vowels = ["A", "E", "I", "O", "U"];
-    if (vowels.includes(text[0].toUpperCase())) {
-      return latinify(text, "way");
-    } else if ((text.charAt(0).toLowerCase() === "q") && (text.charAt(1).toLowerCase() === "u")) {
-      return latinify(text, "ay", text.slice(0, 2));
-    } else if (text.toLowerCase().startsWith('squ')) { 
-      return latinify(text, 'ay', text.slice(0, 1));
-    } else {
-        let prefix = '';
-        for (let index=0; index <text.length; index +=1) {
-            if (vowels.includes(text[index].toUpperCase())) {
-                return latinify(text, "ay", prefix);
-            } else {
-                prefix+=text[index];
-            }
-        }
-    }
-    return text;
+  }
+  return text;
 }
 
 function translatePassage(passage) {
@@ -75,7 +63,6 @@ function translatePassage(passage) {
   result = passageArray.map(pigLatin).join(' ');
   return result;
 }
-
 
 // interface
 function formSubmit (event) {
