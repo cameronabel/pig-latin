@@ -22,7 +22,7 @@ function depunctualize(word) {
 function latinify(word, suffix, prefix='') {
   const [letters, punctuation] = depunctualize(word);
   word = letters.slice(prefix.length);
-  if (prefix[0] === prefix[0].toUpperCase()) {
+  if (prefix && prefix[0] === prefix[0].toUpperCase()) {
     word = word[0].toUpperCase() + word.slice(1);
     prefix = prefix.toLowerCase();
   }
@@ -31,6 +31,7 @@ function latinify(word, suffix, prefix='') {
 
 // business
 function pigLatin(text) {
+  console.log(text)
   if (isEmpty(text)) {
     return "";
   }
@@ -72,7 +73,6 @@ function formSubmit (event) {
   let result = translatePassage(passage);
   document.getElementById("translated-passage").append(result);
 }
-
 
 window.addEventListener("load", function() {
   document.querySelector("form#translator").addEventListener("submit", formSubmit);
